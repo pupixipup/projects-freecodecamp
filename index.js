@@ -34,7 +34,7 @@ var listener = app.listen(process.env.PORT || 3000, function () {
 });
 
 function whoami (req, res) {
-  const ipaddress = req.ip;
+  const ipaddress = req.socket.remoteAdress || req.ip;
   const language = req.headers['accept-language'];
   const software = req.headers['user-agent'];
 res.json({ipaddress, language, software});
