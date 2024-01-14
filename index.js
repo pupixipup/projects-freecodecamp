@@ -37,7 +37,8 @@ var listener = app.listen(process.env.PORT, function () {
 
 
 function getDate(req, res) {
-    const date = req.params.date;
+    const requestDate = req.params.date;
+    const date = Number(requestDate) ? Number(requestDate) : requestDate;
     const dateObj = date ? new Date(date) : new Date();
     if (String(dateObj) === "Invalid Date") {
         return res.json({error: "Invalid Date"});
