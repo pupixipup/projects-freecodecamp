@@ -24,6 +24,8 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api", getDate);
+
 app.get("/api/:date", getDate);
 
 
