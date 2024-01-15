@@ -9,6 +9,7 @@ const Url = require("./Model/Url")
 // Basic Configuration
 const port = process.env.PORT || 3000;
 
+console.log("url: ", process.env.MONGO_URL);
 const connection = mongoose.connect(process.env.MONGO_URL);
 
 app.use(cors());
