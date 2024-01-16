@@ -28,6 +28,7 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
   const id = req.params._id
   const description = req.body.description
   const duration = req.body.duration
+  console.log(req.body.date);
   const date =
     new Date(req.body.date).toDateString() ?? new Date().toDateString()
   const user = await User.findById(id).exec()
