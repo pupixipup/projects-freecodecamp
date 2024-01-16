@@ -33,7 +33,7 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
   const user = await User.findById(id).exec()
   await Log.updateOne(
     { username: user.username },
-    { $inc: { count: 1 }, $push: { description, duration, date } }
+    { $inc: { count: 1 }, $push: { log: { description, duration, date } } }
   ).exec()
 
   await Exercise.create({
@@ -43,7 +43,8 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
     username: user.username,
   })
   res.json({
-    ...user,
+    _id: user._id,
+    username: user.username,
     description,
     duration,
     date,
