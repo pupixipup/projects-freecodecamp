@@ -30,7 +30,7 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
   const duration = req.body.duration
   console.log(req.body.date);
   const date =
-    new Date(req.body.date).toDateString() ?? new Date().toDateString()
+    req.body.date ? new Date(req.body.date).toDateString() : new Date().toDateString()
   const user = await User.findById(id).exec()
   await Log.updateOne(
     { username: user.username },
