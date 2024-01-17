@@ -68,7 +68,7 @@ app.get("/api/users/:_id/logs", async (req, res) => {
   const {_id, username} = await User.findById(id);
   query.username = username;
   const {log, count} = await Log.findOne({ username })
-  const exercises = await Exercise.find(query)
+  const exercises = await Exercise.find(query).limit(parseInt(limit))
   res.json({ _id, username, log: exercises, count })
 })
 
