@@ -53,9 +53,23 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
 
 app.get("/api/users/:_id/logs", async (req, res) => {
   const id = req.params._id
+  const { from, to, limit   } = req.query;
+
+  const query = {}
+
+  const date = {}
+  if (from) date.$gte = new Date(from)
+  if (to) date.$lte = new Date(to)
+
+  if (Object.keys(date).length) {
+    query.date = date;
+  }
+
   const {_id, username} = await User.findById(id);
-  const {log, count} = await Log.findOne({username})
-  res.json({ _id, username, log, count })
+  query.username = username;
+  const {log, count} = await Log.findOne({ username })
+  const exercises = await Exercise.find(query)
+  res.json({ _id, username, log: exercises, count })
 })
 
 app.get("/api/users", async (req, res) => {
