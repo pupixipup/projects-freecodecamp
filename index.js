@@ -53,7 +53,8 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
 
 app.get("/api/users/:_id/logs", async (req, res) => {
   const id = req.params._id
-  const log = await Log.findById(id).exec()
+  const user = await User.findById(id).exec()
+  const log = await Log.find({username: user.username}).exec()
   console.log("log: ", id, log)
   res.json(log)
 })
