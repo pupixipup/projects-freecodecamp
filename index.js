@@ -21,13 +21,14 @@ app.post("/api/users", async (req, res) => {
   const name = req.body.username
   const user = await User.create({ username: name })
   await Log.create({ username: user.username, count: 0, log: [] })
+  console.log(user._id, user)
   res.json(user)
 })
 
 app.post("/api/users/:_id/exercises", async (req, res) => {
   const id = req.params._id
   const description = req.body.description
-  const duration = req.body.duration
+  const duration = parseInt(req.body.duration)
   const date =
     req.body.date ? new Date(req.body.date).toDateString() : new Date().toDateString()
 
@@ -44,10 +45,10 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
     username: user.username,
   })
   res.json({
-    _id: user._id,
     username: user.username,
     description,
     duration,
+    _id: user._id,
     date,
   })
 })
