@@ -21,7 +21,6 @@ app.post("/api/users", async (req, res) => {
   const name = req.body.username
   const user = await User.create({ username: name })
   await Log.create({ username: user.username, count: 0, log: [] })
-  console.log(user._id, user)
   res.json(user)
 })
 
@@ -62,12 +61,6 @@ app.get("/api/users/:_id/logs", async (req, res) => {
   const date = {}
   if (from) date.$gte = from
   if (to) date.$lte = to
-
-  if (Object.keys(date).length) {
-    // query.date = date;
-  }
-
-  console.log(query)
 
   const {_id, username} = await User.findById(id);
   query.username = username;
