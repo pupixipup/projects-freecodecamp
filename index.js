@@ -30,6 +30,7 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
   const duration = req.body.duration
   const date =
     req.body.date ? new Date(req.body.date).toDateString() : new Date().toDateString()
+
   const user = await User.findById(id).exec()
   await Log.updateOne(
     { username: user.username },
@@ -58,8 +59,8 @@ app.get("/api/users/:_id/logs", async (req, res) => {
   const query = {}
 
   const date = {}
-  if (from) date.$gte = new Date(from)
-  if (to) date.$lte = new Date(to)
+  if (from) date.$gte = from
+  if (to) date.$lte = to
 
   if (Object.keys(date).length) {
     query.date = date;
@@ -74,7 +75,7 @@ app.get("/api/users/:_id/logs", async (req, res) => {
     duration: x.duration,
     date: new Date(x.date).toDateString()
   }))
-  console.log(exercises)
+
   res.json({ _id, username, log: exercises, count })
 })
 
