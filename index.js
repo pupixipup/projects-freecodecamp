@@ -64,8 +64,10 @@ app.get("/api/users/:_id/logs", async (req, res) => {
   if (to) date.$lte = to
 
   if (Object.keys(date).length) {
-    query.date = date;
+    // query.date = date;
   }
+
+  console.log(query)
 
   const {_id, username} = await User.findById(id);
   query.username = username;
